@@ -46,9 +46,9 @@ In order to submit the assignment, do the following:
 
 1. Navigate to GitHub's project import page: [https://github.com/new/import](https://github.com/new/import)
 
-2. In the box titled "Your old repository's clone URL", paste the homework repository's link: [https://github.com/Machina-Labs/network_com_hw](https://github.com/Machina-Labs/network_com_hw)
+2. In the box titled "Your old repository's clone URL", paste the homework repository's link: [https://github.com/Machina-Labs/CompGeo_Add_Skirt](https://github.com/Machina-Labs/CompGeo_Add_Skirt)
 
-3. In the box titled "Repository Name", add a name for your local homework (ex. `network_com_soln`)
+3. In the box titled "Repository Name", add a name for your local homework (ex. `Add_skirt_soln`)
 
 4. Set privacy level to "Public", then click "Begin Import" button at bottom of the page.
 
