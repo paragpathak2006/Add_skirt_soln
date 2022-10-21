@@ -17,6 +17,7 @@ pickle-email-*.html
 !/log/.keep
 !/tmp/.keep
 
+
 # TODO Comment out this rule if you are OK with secrets being uploaded to the repo
 config/initializers/secret_token.rb
 config/master.key
@@ -66,6 +67,7 @@ yarn-debug.log*
 /storage/*
 !/storage/.keep
 Debug/*
+!MachinaLabs.exe
 .vs/*
 /config/master.key
 
