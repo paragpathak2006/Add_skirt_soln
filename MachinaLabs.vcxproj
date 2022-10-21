@@ -18,6 +18,46 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Header\Elements.h" />
+    <ClInclude Include="Header\Geometry\Wireframe.h" />
+    <ClInclude Include="Header\Geometry\Cubic.h" />
+    <ClInclude Include="Header\Geometry\Point.h" />
+    <ClInclude Include="Header\Geometry\Tessellation.h" />
+    <ClInclude Include="Header\Geometry\Vector2D.h" />
+    <ClInclude Include="Header\Header.h" />
+    <ClInclude Include="Header\Helpers.h" />
+    <ClInclude Include="Header\IO\Finder.h" />
+    <ClInclude Include="Header\IO\output_console.h" />
+    <ClInclude Include="Header\IO\Parameters.h" />
+    <ClInclude Include="Header\Stl\mesh.h" />
+    <ClInclude Include="Header\Stl\stl.h" />
+    <ClInclude Include="Header\Stl\stl_interface.h" />
+    <ClInclude Include="Header\Stl\triangle.h" />
+    <ClInclude Include="Header\Stl\vec3.h" />
+    <ClInclude Include="Header\Topology\Edge.h" />
+    <ClInclude Include="Header\Topology\Face.h" />
+    <ClInclude Include="Header\Topology\Loop.h" />
+    <ClInclude Include="Header\Topology\Node.h" />
+    <ClInclude Include="Header\Topology\Topology.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Geometry\Boundary.cpp" />
+    <ClCompile Include="Source\Geometry\Cubic.cpp" />
+    <ClCompile Include="Source\Geometry\Point.cpp" />
+    <ClCompile Include="Source\Geometry\Tessellation.cpp" />
+    <ClCompile Include="Source\Geometry\Vector2D.cpp" />
+    <ClCompile Include="Source\IO\Finder.cpp" />
+    <ClCompile Include="Source\IO\output_console.cpp" />
+    <ClCompile Include="Source\IO\Parameters.cpp" />
+    <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\Stl\stl.cpp" />
+    <ClCompile Include="Source\Topology\Edge.cpp" />
+    <ClCompile Include="Source\Topology\Face.cpp" />
+    <ClCompile Include="Source\Topology\Loop.cpp" />
+    <ClCompile Include="Source\Topology\Node.cpp" />
+    <ClCompile Include="Source\Topology\Topology.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -138,46 +178,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Boundary.cpp" />
-    <ClCompile Include="Cubic.cpp" />
-    <ClCompile Include="Edge.cpp" />
-    <ClCompile Include="Face.cpp" />
-    <ClCompile Include="Loop.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Node.cpp" />
-    <ClCompile Include="output_console.cpp" />
-    <ClCompile Include="Parameters.cpp" />
-    <ClCompile Include="Point.cpp" />
-    <ClCompile Include="Finder.cpp" />
-    <ClCompile Include="stl.cpp" />
-    <ClCompile Include="Tessellation.cpp" />
-    <ClCompile Include="Topology.cpp" />
-    <ClCompile Include="Vector2D.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Cubic.h" />
-    <ClInclude Include="Edge.h" />
-    <ClInclude Include="Elements.h" />
-    <ClInclude Include="Face.h" />
-    <ClInclude Include="Boundary.h" />
-    <ClInclude Include="Finder.h" />
-    <ClInclude Include="Header.h" />
-    <ClInclude Include="Loop.h" />
-    <ClInclude Include="mesh.h" />
-    <ClInclude Include="output_console.h" />
-    <ClInclude Include="Parameters.h" />
-    <ClInclude Include="stl.h" />
-    <ClInclude Include="stl_interface.h" />
-    <ClInclude Include="Tessellation.h" />
-    <ClInclude Include="Topology.h" />
-    <ClInclude Include="Helpers.h" />
-    <ClInclude Include="Node.h" />
-    <ClInclude Include="Point.h" />
-    <ClInclude Include="triangle.h" />
-    <ClInclude Include="vec3.h" />
-    <ClInclude Include="Vector2D.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

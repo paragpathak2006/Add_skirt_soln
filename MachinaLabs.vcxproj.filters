@@ -31,117 +31,120 @@
     <Filter Include="Header Files\IO">
       <UniqueIdentifier>{dd750a48-e212-44e9-b0ce-bffb6298270d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Source Files\IO">
+      <UniqueIdentifier>{d1944b42-c8f2-4e37-85d2-28b73be3e684}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Finder.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Edge.cpp">
-      <Filter>Resource Files\Source Files\Topology</Filter>
-    </ClCompile>
-    <ClCompile Include="Face.cpp">
-      <Filter>Resource Files\Source Files\Topology</Filter>
-    </ClCompile>
-    <ClCompile Include="Loop.cpp">
-      <Filter>Resource Files\Source Files\Topology</Filter>
-    </ClCompile>
-    <ClCompile Include="Node.cpp">
-      <Filter>Resource Files\Source Files\Topology</Filter>
-    </ClCompile>
-    <ClCompile Include="Topology.cpp">
-      <Filter>Resource Files\Source Files\Topology</Filter>
-    </ClCompile>
-    <ClCompile Include="Cubic.cpp">
-      <Filter>Resource Files\Source Files\Geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="Point.cpp">
-      <Filter>Resource Files\Source Files\Geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector2D.cpp">
-      <Filter>Resource Files\Source Files\Geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="Tessellation.cpp">
-      <Filter>Resource Files\Source Files\Geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="Boundary.cpp">
-      <Filter>Resource Files\Source Files\Geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="stl.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="output_console.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Parameters.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Node.h">
-      <Filter>Header Files\Topology</Filter>
-    </ClInclude>
-    <ClInclude Include="Face.h">
-      <Filter>Header Files\Topology</Filter>
-    </ClInclude>
-    <ClInclude Include="Edge.h">
-      <Filter>Header Files\Topology</Filter>
-    </ClInclude>
-    <ClInclude Include="Point.h">
-      <Filter>Header Files\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector2D.h">
-      <Filter>Header Files\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="Cubic.h">
-      <Filter>Header Files\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="Topology.h">
-      <Filter>Header Files\Topology</Filter>
-    </ClInclude>
-    <ClInclude Include="Boundary.h">
-      <Filter>Header Files\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="Tessellation.h">
-      <Filter>Header Files\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="Loop.h">
-      <Filter>Header Files\Topology</Filter>
-    </ClInclude>
-    <ClInclude Include="Elements.h">
+    <ClInclude Include="Header\Elements.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="stl.h">
-      <Filter>Header Files\STL</Filter>
+    <ClInclude Include="Header\Header.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="vec3.h">
-      <Filter>Header Files\STL</Filter>
+    <ClInclude Include="Header\Helpers.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="triangle.h">
-      <Filter>Header Files\STL</Filter>
+    <ClInclude Include="Header\Geometry\Cubic.h">
+      <Filter>Header Files\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="mesh.h">
-      <Filter>Header Files\STL</Filter>
+    <ClInclude Include="Header\Geometry\Point.h">
+      <Filter>Header Files\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="stl_interface.h">
-      <Filter>Header Files\STL</Filter>
+    <ClInclude Include="Header\Geometry\Tessellation.h">
+      <Filter>Header Files\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="output_console.h">
+    <ClInclude Include="Header\Geometry\Vector2D.h">
+      <Filter>Header Files\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Geometry\Wireframe.h">
+      <Filter>Header Files\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Topology\Face.h">
+      <Filter>Header Files\Topology</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Topology\Loop.h">
+      <Filter>Header Files\Topology</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Topology\Node.h">
+      <Filter>Header Files\Topology</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Topology\Topology.h">
+      <Filter>Header Files\Topology</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Topology\Edge.h">
+      <Filter>Header Files\Topology</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\IO\output_console.h">
       <Filter>Header Files\IO</Filter>
     </ClInclude>
-    <ClInclude Include="Header.h">
+    <ClInclude Include="Header\IO\Parameters.h">
       <Filter>Header Files\IO</Filter>
     </ClInclude>
-    <ClInclude Include="Finder.h">
+    <ClInclude Include="Header\IO\Finder.h">
       <Filter>Header Files\IO</Filter>
     </ClInclude>
-    <ClInclude Include="Helpers.h">
-      <Filter>Header Files\IO</Filter>
-    </ClInclude>
-    <ClInclude Include="Parameters.h">
+    <ClInclude Include="Header\Stl\stl.h">
       <Filter>Header Files\STL</Filter>
     </ClInclude>
+    <ClInclude Include="Header\Stl\stl_interface.h">
+      <Filter>Header Files\STL</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Stl\triangle.h">
+      <Filter>Header Files\STL</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Stl\vec3.h">
+      <Filter>Header Files\STL</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Stl\mesh.h">
+      <Filter>Header Files\STL</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\main.cpp">
+      <Filter>Resource Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Geometry\Cubic.cpp">
+      <Filter>Resource Files\Source Files\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Geometry\Point.cpp">
+      <Filter>Resource Files\Source Files\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Geometry\Tessellation.cpp">
+      <Filter>Resource Files\Source Files\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Geometry\Vector2D.cpp">
+      <Filter>Resource Files\Source Files\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Geometry\Boundary.cpp">
+      <Filter>Resource Files\Source Files\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\IO\Finder.cpp">
+      <Filter>Resource Files\Source Files\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\IO\output_console.cpp">
+      <Filter>Resource Files\Source Files\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\IO\Parameters.cpp">
+      <Filter>Resource Files\Source Files\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Stl\stl.cpp">
+      <Filter>Resource Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Topology\Face.cpp">
+      <Filter>Resource Files\Source Files\Topology</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Topology\Loop.cpp">
+      <Filter>Resource Files\Source Files\Topology</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Topology\Node.cpp">
+      <Filter>Resource Files\Source Files\Topology</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Topology\Topology.cpp">
+      <Filter>Resource Files\Source Files\Topology</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Topology\Edge.cpp">
+      <Filter>Resource Files\Source Files\Topology</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
