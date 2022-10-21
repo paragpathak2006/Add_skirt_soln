@@ -11,7 +11,7 @@ To edit parameters , go to parameters.h in IO/ and set the folloing values.
 -         sprawl = 4- Increases the spread of the skirt 
 -         tolerence = 1e-5: Tolenrece for point equivalency.
 
-
+## Test cases
 - Part.txt: a simple 2 faces tessalation 
 ![2 -part-txt-stl](https://user-images.githubusercontent.com/31978917/197202176-8a861227-9371-49c5-9716-56cb05386655.png)
 - Part.STL: The given sample part to tessalate
