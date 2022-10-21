@@ -4,6 +4,7 @@
 - Two sample outputs -stl-out (1 & 2) in root folder provided.
 - When promted, please enter 1/2 to pick the sample input. 
 ## Parameters
+To edit parameters , go to parameters.h in IO/ and set the folloing values.
 -         step = 10: 1/2/4/5/10/20/25/50 factors of 100
 -         slope = 4: For tangents of the hermite curves
 -         min_angle = 10: Minimum difference between two consecutive skirt boundary segments to split the node into multiple nodes
