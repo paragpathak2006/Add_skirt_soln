@@ -3,7 +3,10 @@
 - Two sample input parts (Parts.STL and Parts.txt) are in Parts/ folder.
 - Two sample outputs -stl-out (1 & 2) in root folder provided.
 ## Running
-- When promted, please enter 1/2 to pick the sample input. 
+- Run Add_skirt_soln/Debug/MachinaLabs.exe
+- When promted, please enter 1/2 to pick the sample input.
+- Set the paramters in the parameters.h header
+
 ## Parameters
 To edit parameters , go to parameters.h in IO/ and set the folloing values.
 -         step = 10: 1/2/4/5/10/20/25/50 factors of 100
