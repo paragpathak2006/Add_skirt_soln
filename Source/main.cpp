@@ -9,18 +9,37 @@
 
 using namespace std;
 
-int main()
-{
+void getInput() {
     Parameters();
     int type;
-    cout << "File number?\n\t1   ->   Part.STL\n\t2   ->   Part.txt\n";
+    cout << "Enter Input File Option number?\n\t1   ->   Part.STL\n\t2   ->   Part.txt\n" << endl;
     cin >> type;
     //type = 1;
     Parameters::file = "./Parts/Part";
     if (type == 1) Parameters::type = "STL";
-    if(type == 2) Parameters::type = "txt";
+    if (type == 2) Parameters::type = "txt";
+
+    cout << "---------------------------------------------" << endl;
+
+}
+void displayParams() {
     
+    cout << "Parameters values are..." << endl << endl;
     Parameters::file += "." + Parameters::type;
+    cout << "\tFile \t\t:\t" << Parameters::file << endl;
+    cout << "\tTolerence \t:\t" << Parameters::tolerence << endl;
+    cout << "\tStep \t\t:\t" << Parameters::step << endl;
+    cout << "\tslope \t\t:\t" << Parameters::slope << endl;
+    cout << "\tMin Angle \t:\t" << Parameters::min_angle << endl;
+    cout << "\tSprawl \t\t:\t" << Parameters::sprawl << endl;
+
+}
+
+
+int main()
+{
+    getInput();
+    displayParams();
     Topology part(Parameters::file, Parameters::type);
     Wireframe frame(part);
     Skirt skirt(frame, part.nodes, part.mesh);

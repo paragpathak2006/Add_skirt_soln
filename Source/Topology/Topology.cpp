@@ -83,7 +83,7 @@ void Topology::read_file_stl(string file) {
             add_face(P[0], P[1], P[2], N);
         }
     }
-    catch (exception& e) {cout << e.what() << std::endl;}
+    catch (exception& e) { cout << e.what() << std::endl;exit(0); }
 
 }
 
