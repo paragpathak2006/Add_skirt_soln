@@ -5,8 +5,11 @@ int cycle(int i) { if (i + 1 > 2) return 0; return i + 1; }
 #include "../../Header/IO/output_console.h"
 
 using namespace std;
-
+Point_Hash Finder::point_hash;
+Edge_Hash Finder::edge_hash;
 Topology::Topology(string file, string type = "STL") {
+    cout << "Reading file \'"<< file <<"." << type << "\'..." << endl;
+
     if (type == "txt")      read_file_txt(file);
     else if (type == "STL") read_file_stl(file);
     else if (type == "stl") read_file_stl(file);
@@ -14,6 +17,9 @@ Topology::Topology(string file, string type = "STL") {
     else {
         cout << "Invalid file"<<endl;exit(0);
     }
+
+    cout << "Reading file compleated !" << endl;
+
 
     generate_topology();
     extract_tessalation_boundary();
@@ -92,11 +98,22 @@ void Topology::rotate1(const float* c, float& x, float& y, float& z) {
 }
 
 void Topology::generate_topology() {
-    create_nodal_topology();
-    create_edge_topology();
+    cout << "\n--------------------------------------\n" << endl;
+    cout << "generating nodal topology..." << endl;
+    create_nodal_topology();    
+    cout << "nodal topology generated" << endl;
+    cout << "\n--------------------------------------\n" << endl;
+    cout << "generating edge topology..." << endl;
+    create_edge_topology();    
+    cout << "edge topology generated" << endl;
+    cout << "\n--------------------------------------\n" << endl;
 }
 
 void Topology::create_nodal_topology() {
+    int num_points = 3 * mesh.size();
+    int num_edges = 3 * mesh.size();
+
+    Finder::initialize_hash(num_points, num_edges);
     for (auto face = mesh.begin(); face != mesh.end(); ++face) {
         for (int ii = 0; ii < 3; ii++){
             int node_index = Finder::find_node_index_of_point(nodes, face->point[ii]);

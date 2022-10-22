@@ -15,11 +15,11 @@ int main()
     int type;
     cout << "File number?\n\t1   ->   Part.STL\n\t2   ->   Part.txt\n";
     cin >> type;
-
+    //type = 1;
     Parameters::file = "./Parts/Part";
     if (type == 1) Parameters::type = "STL";
     if(type == 2) Parameters::type = "txt";
-
+    
     Parameters::file += "." + Parameters::type;
     Topology part(Parameters::file, Parameters::type);
     Wireframe frame(part);

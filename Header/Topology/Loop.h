@@ -20,9 +20,12 @@ public:
     Edges edges;
     Node_List nodes;
     Tangents tangents;
-    void print(ostream& c) { print_edges(c);print_nodes(c);    print_tangents(c);    }
+    void print(ostream& c) { print_edges(c); print_tangents(c);    }
     void print_edges(ostream& c) {    c <<"Loop : Edges : \n" << edges<<endl; }
-    void print_nodes(ostream& c) {    c << "Loop : Nodes: \n" << nodes << endl; }
+    void print_nodes(ostream& c, Nodes& node_set) {
+        c << "Loop : Nodes: \n";
+        for(auto& i: nodes)c<< node_set[i] << endl; 
+    }
     void print_tangents(ostream& c) { c << "Loop : Tangents : \n" << tangents << endl; }
     int next_edge_index(int i) { if (i == edges.size() - 1) return 0; return i + 1; }
     void build_outer_loop(Loop& inner_loop, Nodes& node_set) {

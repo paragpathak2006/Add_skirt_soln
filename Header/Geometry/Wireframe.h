@@ -22,10 +22,13 @@ class Wireframe {
 
         #ifdef DEBUG
             cout << endl << endl << "---------inner_loop-------------" << endl << endl;
-            inner_loop.print(cout);
+            inner_loop.print_tangents(cout);
+            inner_loop.print_nodes(cout, part.nodes);
 
             cout << endl << endl << "---------outter_loop-------------" << endl << endl;
-            outter_loop.print(cout);
+            outter_loop.print_edges(cout);
+            outter_loop.print_tangents(cout);
+            outter_loop.print_nodes(cout, part.nodes);
             cout << "Updated Nodes List: \n" << part.nodes;
             cout << "\n\nSprawl : \n";
             for (int i = 0; i < outter_loop.nodes.size(); i++)
