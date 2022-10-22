@@ -68,6 +68,8 @@ yarn-debug.log*
 !/storage/.keep
 Debug/*
 !MachinaLabs.exe
+!Debug/Parts
+
 .vs/*
 /config/master.key
 
