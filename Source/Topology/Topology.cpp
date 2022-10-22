@@ -8,6 +8,7 @@ using namespace std;
 Point_Hash Finder::point_hash;
 Edge_Hash Finder::edge_hash;
 Topology::Topology(string file, string type = "STL") {
+    cout << "\n--------------------------------------\n" << endl;
     cout << "Reading file \'"<< file <<"." << type << "\'..." << endl;
 
     if (type == "txt")      read_file_txt(file);

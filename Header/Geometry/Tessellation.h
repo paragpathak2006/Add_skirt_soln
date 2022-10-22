@@ -16,7 +16,7 @@ public:
     Curves curves;
 
     Skirt(Wireframe& boundary, Nodes& node, Tessellation part) {
-        cout << "\n\nSkirt : \n" ;
+        cout << "\nSkirting...\n" ;
         tessalation_curves(boundary, node);
         tessalate();
 
@@ -33,40 +33,36 @@ public:
 
     void tessalation_curves(Wireframe& boundary, Nodes& node) {
 
-        for (int i = 0; i < boundary.outter_loop.nodes.size(); i++)
-        {
+        for (int i = 0; i < boundary.outter_loop.nodes.size(); i++)  {
+
             Point P0 = node[boundary.inner_loop.nodes[i]].point();
             Point P1 = node[boundary.outter_loop.nodes[i]].point();
 
             Tangent T0 = boundary.inner_loop.tangents[i];
             Tangent T1 = boundary.outter_loop.tangents[i];
+
             curves.push_back(Cubic(P0, P1, T0, T1, Parameters::slope));
         };
     }
 
     void tessalate() {
 
-        for (int i = 0; i < curves.size(); i++)
-        {
-            int j = i + 1; if (j == curves.size()) j = 0;
-
+        for (int i = 0; i < curves.size(); i++) {
+            int j = cycle(i);
             Cubic C1 = curves[i];
             Cubic C2 = curves[j];
-
             tessalate(C1, C2);
         };
     }
 
     void tessalate(Cubic& A, Cubic& B) {
-        for (int i = 0; i < 100; i = i + Parameters::step)
-        {
+        for (int i = 0; i < 100; i = i + Parameters::step) {
+
             auto A0 = A.point(i);        auto A1 = A.point(i + Parameters::step);
             auto B0 = B.point(i);        auto B1 = B.point(i + Parameters::step);
 
-            if ( i == 100 && A.P[1] == B.P[1])
-                tessalate(A0, B0, B1);
-            else
-                tessalate(A0, B0, A1, B1);
+            if ( i == 100 && A.P[1] == B.P[1])      tessalate(A0, B0, B1);
+            else                                    tessalate(A0, B0, A1, B1);
         }
     }
 
@@ -78,5 +74,8 @@ public:
     void tessalate(Point P0, Point P1, Point P2) {
         skirt.push_back(Face(skirt.size(),P0, P1, P2));
     }
+
+
+    int cycle(int i) { if (i == curves.size() - 1) return 0; return i + 1; }
 
 };

@@ -10,7 +10,7 @@ template<class T, class W> bool is_near_by(T& N, W& P) { return d(N, P) <= Param
 typedef long long int Lint;
 typedef Lint Key;
 typedef pair<int, int> Node_Pair;
-
+typedef vector<int> Octet;
 typedef unordered_multimap< Key, int> Point_Hash;
 typedef unordered_multimap< Key, int> Edge_Hash;
 typedef unordered_map< Key , Points> Multi_Point_Hash;
@@ -41,25 +41,15 @@ public:
     }
     static Key hasher(Point& P) {return hasher(P, 0, 0, 0);}
     static void add_point(Point& P, int index) {
-        vector<int> range = { 0,1 };
-        for(int& i : range)
-            for (int& j : range)
-                for (int& k : range)
+        Octet octet = { 0,1 }; 
+        for(int& i : octet)
+            for (int& j : octet)
+                for (int& k : octet)
                     point_hash.emplace(hasher(P, i,  j,  k), index);
         //cout << endl;
     }
 
     static auto loop_up_point(Point& P) {
-        vector<int> range = { 0,1 };
-        for (int& i : range) {
-            for (int& j : range){
-                for (int& k : range){
-                    auto it = point_hash.find(hasher(P, i, j, k));
-                    if (it != point_hash.end()) return it;
-                }
-            }
-        }
-        return point_hash.end();
         //cout << endl;
     }
 
@@ -78,30 +68,26 @@ public:
         //for (auto& node: nodes)
         //    if (is_near_by(node, P))
         //        return node.index;
-        //cout << endl <<" Look up : " << P << endl;
-        auto hash_point = hasher(P);
-        auto found = loop_up_point(P);
-        if (found == point_hash.end()){
-            //cout << " Add point: " << P << endl;
-            add_point(P, nodes.size());
-            //cout << point_hash.size() << endl;
-            return -1;
-        }
 
-        else {
-            auto range = point_hash.equal_range(hash_point);
-            for (auto it = range.first; it != range.second; ++it) {
-                int node_index = it->second;
-                if(is_near_by(nodes[node_index], P))return node_index;
-                //cout <<"key : "<< it->first << "\t node index : " << it->second << endl;
+        Octet octet = { 0,1 };
+        for (int& i : octet) {
+            for (int& j : octet) {
+                for (int& k : octet) {
+                    auto hash_point = hasher(P, i, j, k);
+                    auto count = point_hash.count(hash_point);
+                    if (count > 0 ) {
+                        auto range = point_hash.equal_range(hash_point);
+                        for (auto it = range.first; it != range.second; ++it) {
+                            int node_index = it->second;
+                            if (is_near_by(nodes[node_index], P))
+                                return node_index;
+                        }
+                    }
+                }
             }
- 
         }
-
-        //cout << " Add point: " << P << endl;
         add_point(P, nodes.size());
         return -1;
-
     }
 
     static int find_edge_index_of_node_pair(Edges& edges, int n1, int n2) {
@@ -109,16 +95,14 @@ public:
             //    if (is_edge_equal(edge, n1, n2))
             //        return edge.index;
         auto hash_edge = edge_hasher(n1,n2);
-        auto found = edge_hash.find(hash_edge);
-        if (found == edge_hash.end()) {add_edge(n1 , n2, edges.size());return -1;}
-        else {
+        auto count = edge_hash.count(hash_edge);
+
+        if (count > 0) {
             auto range = edge_hash.equal_range(hash_edge);
             for (auto it = range.first; it != range.second; ++it) {
                 int edge_index = it->second;
-                auto en1 = edges[edge_index].node[0];
-                auto en2 = edges[edge_index].node[1];
-                if (en1 == n1 && en2 == n2)                    return edge_index;
-                if (en1 == n2 && en2 == n1)                    return edge_index;
+                if(is_edge_equal(edges[edge_index], n1, n2))
+                    return edge_index;
             }
         }
 
