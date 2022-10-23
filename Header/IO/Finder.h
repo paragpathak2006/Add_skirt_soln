@@ -16,90 +16,61 @@ typedef unordered_multimap< Key, int> Edge_Hash;
 typedef unordered_map< Key , Points> Multi_Point_Hash;
 typedef unordered_map< Key , Nodes > Multi_Node_Hash;
 
+#define FOR(i,j,k) for(int& i : octet)for (int& j : octet)for (int& k : octet)
+#define FOR_RANGE(it,range) for(auto& it = range.first; it != range.second; ++it)
+
 class Finder {
 public:
     static Point_Hash point_hash;
     static Edge_Hash edge_hash;
+    static Octet octet;
 
-    static Key hasher(int Px,int Py, int Pz) {
-        return (Px * 18397) + (Py * 20483) + (Pz * 29303);
-    }
-    static Key edge_hasher(int i, int j) {
-        if (i<j)
-        return i * 18397 + j * 20483;
-        return j * 18397 + i * 20483;
-    }
+
+    static void initialize_hash(int node_num, int edge_num) { octet = { -1,0,1 };point_hash.reserve(node_num);edge_hash.reserve(edge_num); }
+    static Key edge_hasher(int i, int j) {if (i<j)return i * 18397 + j * 20483;return j * 18397 + i * 20483;}
+    static Key hasher(Point& P) { return hasher(P, 0, 0, 0); }
+    static Key hasher(int Px,int Py, int Pz) {return (Px * 18397) + (Py * 20483) + (Pz * 29303);}
 
     static Key hasher(Point& P, int i, int j, int k ) { 
         constexpr int order = 1e3;
+
         int Px = floor(P.x * order) + i;
         int Py = floor(P.y * order) + j;
         int Pz = floor(P.z * order) + k;
+
         Key key = hasher(Px, Py, Pz);
-        //cout << key<<"(" << P.x << "," << P.y << "," << P.z<<")\t";
         return key;
     }
-    static Key hasher(Point& P) {return hasher(P, 0, 0, 0);}
-    static void add_point(Point& P, int index) {
-        Octet octet = { 0,1 }; 
-        for(int& i : octet)
-            for (int& j : octet)
-                for (int& k : octet)
-                    point_hash.emplace(hasher(P, i,  j,  k), index);
-        //cout << endl;
-    }
 
-    static auto loop_up_point(Point& P) {
-        //cout << endl;
-    }
+    static void add_point(Point& P, int index) { point_hash.emplace(hasher(P), index); }
+    static void add_edge(int i, int j, int index) { edge_hash.emplace(edge_hasher(i, j), index); }
 
-
-    static void add_edge(int i, int j,int index) {
-           edge_hash.emplace(edge_hasher(i, j), index);
-    }
-
-    static void initialize_hash(int node_num, int edge_num) {
-        point_hash.reserve(node_num);
-        edge_hash.reserve(edge_num);
-    }
-
-    static int find_node_index_of_point(Nodes& nodes, Point& P) {
-
-        //for (auto& node: nodes)
-        //    if (is_near_by(node, P))
-        //        return node.index;
-
-        Octet octet = { 0,1 };
-        for (int& i : octet) {
-            for (int& j : octet) {
-                for (int& k : octet) {
-                    auto hash_point = hasher(P, i, j, k);
-                    auto count = point_hash.count(hash_point);
-                    if (count > 0 ) {
-                        auto range = point_hash.equal_range(hash_point);
-                        for (auto it = range.first; it != range.second; ++it) {
-                            int node_index = it->second;
-                            if (is_near_by(nodes[node_index], P))
-                                return node_index;
-                        }
-                    }
+    static int lookup_point(Nodes& nodes, Point& P) { for (auto& node : nodes)if (is_near_by(node, P))        return node.index; }
+    static int lookup_point_fast(Nodes& nodes, Point& P) {
+        FOR(i,j,k) {
+            auto hash_value = hasher(P, i, j, k);
+            auto count = point_hash.count(hash_value);
+            if (count > 0 ) {
+                auto range = point_hash.equal_range(hash_value);
+                FOR_RANGE(it,range) {
+                    int node_index = it->second;
+                    if (is_near_by(nodes[node_index], P))
+                        return node_index;
                 }
             }
         }
+
         add_point(P, nodes.size());
         return -1;
     }
 
-    static int find_edge_index_of_node_pair(Edges& edges, int n1, int n2) {
-            //for (auto& edge : edges)
-            //    if (is_edge_equal(edge, n1, n2))
-            //        return edge.index;
-        auto hash_edge = edge_hasher(n1,n2);
-        auto count = edge_hash.count(hash_edge);
-
+    static int lookup_edge(Edges& edges, int n1, int n2) { for (auto& edge : edges)if (is_edge_equal(edge, n1, n2))return edge.index; }
+    static int lookup_edge_fast(Edges& edges, int n1, int n2) {
+        Lint hash_value = edge_hasher(n1,n2);
+        int count = edge_hash.count(hash_value);
         if (count > 0) {
-            auto range = edge_hash.equal_range(hash_edge);
-            for (auto it = range.first; it != range.second; ++it) {
+            auto range = edge_hash.equal_range(hash_value);
+            FOR_RANGE(it,range) {
                 int edge_index = it->second;
                 if(is_edge_equal(edges[edge_index], n1, n2))
                     return edge_index;
@@ -112,12 +83,7 @@ public:
 
     static bool is_edge_equal(Edge& E1, Edge& E2) { return is_edge_equal(E1.node[0], E1.node[1], E2.node[0], E2.node[1]); }
     static bool is_edge_equal(Edge& E, int B1, int B2) { return is_edge_equal(E.node[0], E.node[1], B1, B2); }
-    static bool is_edge_equal(int A1, int A2, int B1, int B2) {
-        if (A1 == B1 && A2 == B2) return true;
-        if (A1 == B2 && A2 == B1) return true;
-        return false;
-    }
-
+    static bool is_edge_equal(int A1, int A2, int B1, int B2) {if (A1 == B1 && A2 == B2) return true;if (A1 == B2 && A2 == B1) return true;return false;}
 
 };
 

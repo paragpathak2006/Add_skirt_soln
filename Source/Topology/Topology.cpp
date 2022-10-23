@@ -5,8 +5,6 @@ int cycle(int i) { if (i + 1 > 2) return 0; return i + 1; }
 #include "../../Header/IO/output_console.h"
 
 using namespace std;
-Point_Hash Finder::point_hash;
-Edge_Hash Finder::edge_hash;
 Topology::Topology(string file, string type = "STL") {
     cout << "\n--------------------------------------\n" << endl;
     cout << "Reading file \'"<< file <<"." << type << "\'..." << endl;
@@ -117,7 +115,7 @@ void Topology::create_nodal_topology() {
     Finder::initialize_hash(num_points, num_edges);
     for (auto face = mesh.begin(); face != mesh.end(); ++face) {
         for (int ii = 0; ii < 3; ii++){
-            int node_index = Finder::find_node_index_of_point(nodes, face->point[ii]);
+            int node_index = Finder::lookup_point_fast(nodes, face->point[ii]);
             if (node_index == -1) {
                 node_index = nodes.size();
                 auto node = Node();
@@ -144,7 +142,7 @@ void Topology::create_edge_topology() {
             int tnode_i = face->node[ii];
             int tnode_j = face->node[jj];
 
-            int edge_index = Finder::find_edge_index_of_node_pair(edges, tnode_i, tnode_j);
+            int edge_index = Finder::lookup_edge_fast(edges, tnode_i, tnode_j);
 
             if (edge_index < 0) {
                 edge_index = edges.size();

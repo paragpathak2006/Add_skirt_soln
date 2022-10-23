@@ -6,6 +6,8 @@
 
 using namespace std;
 
+
+
 class Face;		class Loop;		class Parameters;
 class Topology;	class Node;		class Edge;		
 class Skirt;	class Scaffold;	class Finder;
