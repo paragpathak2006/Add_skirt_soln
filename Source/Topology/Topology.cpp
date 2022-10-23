@@ -5,6 +5,9 @@ int cycle(int i) { if (i + 1 > 2) return 0; return i + 1; }
 #include "../../Header/IO/output_console.h"
 
 using namespace std;
+#define NOT_FOUND -1
+#define IS_NOT_FOUND(val) val == NOT_FOUND
+
 Topology::Topology(string file, string type = "STL") {
     cout << "\n--------------------------------------\n" << endl;
     cout << "Reading file \'"<< file <<"." << type << "\'..." << endl;
@@ -98,13 +101,13 @@ void Topology::rotate1(const float* c, float& x, float& y, float& z) {
 
 void Topology::generate_topology() {
     cout << "\n--------------------------------------\n" << endl;
-    cout << "generating nodal topology..." << endl;
+    cout << "Generating nodal topology..." << endl;
     create_nodal_topology();    
-    cout << "nodal topology generated" << endl;
+    cout << "Nodal topology generated !" << endl;
     cout << "\n--------------------------------------\n" << endl;
-    cout << "generating edge topology..." << endl;
+    cout << "Generating edge topology..." << endl;
     create_edge_topology();    
-    cout << "edge topology generated" << endl;
+    cout << "Edge topology generated !" << endl;
     cout << "\n--------------------------------------\n" << endl;
 }
 
@@ -116,7 +119,8 @@ void Topology::create_nodal_topology() {
     for (auto face = mesh.begin(); face != mesh.end(); ++face) {
         for (int ii = 0; ii < 3; ii++){
             int node_index = Finder::lookup_point_fast(nodes, face->point[ii]);
-            if (node_index == -1) {
+
+            if (IS_NOT_FOUND(node_index)) {
                 node_index = nodes.size();
                 auto node = Node();
                 node.set(node_index, face->point[ii]);
@@ -144,7 +148,7 @@ void Topology::create_edge_topology() {
 
             int edge_index = Finder::lookup_edge_fast(edges, tnode_i, tnode_j);
 
-            if (edge_index < 0) {
+            if (IS_NOT_FOUND(edge_index)) {
                 edge_index = edges.size();
                 auto N = face->N;
                 auto edge = Edge(tnode_i, tnode_j);

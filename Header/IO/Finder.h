@@ -47,13 +47,20 @@ public:
 
     static int lookup_point(Nodes& nodes, Point& P) { for (auto& node : nodes)if (is_near_by(node, P))        return node.index; }
     static int lookup_point_fast(Nodes& nodes, Point& P) {
-        FOR(i,j,k) {
-            auto hash_value = hasher(P, i, j, k);
+        auto hash_P = hasher(P);
+        FOR(i,j,k) 
+        {
+            auto hash_value = hash_P + hasher(i, j, k);
             auto count = point_hash.count(hash_value);
+
             if (count > 0 ) {
+
                 auto range = point_hash.equal_range(hash_value);
+
                 FOR_RANGE(it,range) {
+
                     int node_index = it->second;
+
                     if (is_near_by(nodes[node_index], P))
                         return node_index;
                 }
@@ -66,12 +73,16 @@ public:
 
     static int lookup_edge(Edges& edges, int n1, int n2) { for (auto& edge : edges)if (is_edge_equal(edge, n1, n2))return edge.index; }
     static int lookup_edge_fast(Edges& edges, int n1, int n2) {
+
         Lint hash_value = edge_hasher(n1,n2);
         int count = edge_hash.count(hash_value);
+
         if (count > 0) {
             auto range = edge_hash.equal_range(hash_value);
             FOR_RANGE(it,range) {
+
                 int edge_index = it->second;
+
                 if(is_edge_equal(edges[edge_index], n1, n2))
                     return edge_index;
             }
