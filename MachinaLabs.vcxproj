@@ -58,6 +58,9 @@
     <ClCompile Include="Source\Topology\Node.cpp" />
     <ClCompile Include="Source\Topology\Topology.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

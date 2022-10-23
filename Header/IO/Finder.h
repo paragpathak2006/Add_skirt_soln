@@ -10,23 +10,29 @@ template<class T, class W> bool is_near_by(T& N, W& P) { return d(N, P) <= Param
 typedef long long int Lint;
 typedef Lint Key;
 typedef pair<int, int> Node_Pair;
-typedef vector<int> Octet;
+typedef vector<Lint> Octet;
 typedef unordered_multimap< Key, int> Point_Hash;
 typedef unordered_multimap< Key, int> Edge_Hash;
 typedef unordered_map< Key , Points> Multi_Point_Hash;
 typedef unordered_map< Key , Nodes > Multi_Node_Hash;
 
-#define FOR(i,j,k) for(int& i : octet)for (int& j : octet)for (int& k : octet)
+#define FORI(i) for(int i = 0; i < 3 ;i++)
+#define FOR(i,j,k) FORI(i)FORI(j)FORI(k)
+#define O(i,j,k) i + 3*j + 9*k
+#define OCTET(i,j,k) octet[O(i, j, k)]
 #define FOR_RANGE(it,range) for(auto& it = range.first; it != range.second; ++it)
 
 class Finder {
 public:
     static Point_Hash point_hash;
     static Edge_Hash edge_hash;
-    static Octet octet;
+    static Lint octet[27];
 
-
-    static void initialize_hash(int node_num, int edge_num) { octet = { -1,0,1 };point_hash.reserve(node_num);edge_hash.reserve(edge_num); }
+    static void initialize_hash(int node_num, int edge_num) { 
+        FOR(i, j, k) OCTET(i, j, k) = hasher(i-1, j - 1, k-1);
+        point_hash.reserve(node_num);
+        edge_hash.reserve(edge_num); 
+    }
     static Key edge_hasher(int i, int j) {if (i<j)return i * 18397 + j * 20483;return j * 18397 + i * 20483;}
     static Key hasher(Point& P) { return hasher(P, 0, 0, 0); }
     static Key hasher(int Px,int Py, int Pz) {return (Px * 18397) + (Py * 20483) + (Pz * 29303);}
@@ -48,9 +54,9 @@ public:
     static int lookup_point(Nodes& nodes, Point& P) { for (auto& node : nodes)if (is_near_by(node, P))        return node.index; }
     static int lookup_point_fast(Nodes& nodes, Point& P) {
         auto hash_P = hasher(P);
-        FOR(i,j,k) 
+        FOR(i, j, k)
         {
-            auto hash_value = hash_P + hasher(i, j, k);
+            auto hash_value = hash_P + OCTET(i, j, k);//Using memonization
             auto count = point_hash.count(hash_value);
 
             if (count > 0 ) {
