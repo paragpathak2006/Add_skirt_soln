@@ -5,8 +5,6 @@
 #include "Parameters.h"
 #include "../Topology/Edge.h"
 #include "../Topology/Node.h"
-template<class T, class W> double d(T& N, W& P) { return (N.x - P.x) * (N.x - P.x) + (N.y - P.y) * (N.y - P.y) + (N.z - P.z) * (N.z - P.z); }
-template<class T, class W> bool is_near_by(T& N, W& P) { return d(N, P) <= Parameters::tolerence; }
 typedef long long int Lint;
 typedef Lint Key;
 typedef pair<int, int> Node_Pair;
@@ -16,20 +14,27 @@ typedef unordered_multimap< Key, int> Edge_Hash;
 typedef unordered_map< Key , Points> Multi_Point_Hash;
 typedef unordered_map< Key , Nodes > Multi_Node_Hash;
 
+#define TOLERENCE Parameters::tolerence
+#define sq(N, P, x) (N.x - P.x) * (N.x - P.x) 
+#define d(N, P) sq(N, P, x) + sq(N, P, y) + sq(N, P, z) 
+#define is_near_by(N, P) d(N, P) <= TOLERENCE 
+#define EDGE_NOT_FOUND -1
+#define NODE_NOT_FOUND -1
+
 #define FORI(i) for(int i = 0; i < 3 ;i++)
 #define FOR(i,j,k) FORI(i)FORI(j)FORI(k)
-#define O(i,j,k) i + 3*j + 9*k
-#define OCTET(i,j,k) octet[O(i, j, k)]
-#define FOR_RANGE(it,range) for(auto& it = range.first; it != range.second; ++it)
+#define octet(i,j,k) oct[i + 3*j + 9*k]
+#define for_range(it,range) for(auto& it = range.first; it != range.second; ++it)
+#define return_index(index) return index; }
 
 class Finder {
 public:
     static Point_Hash point_hash;
     static Edge_Hash edge_hash;
-    static Lint octet[27];
+    static Lint oct[27];
 
     static void initialize_hash(int node_num, int edge_num) { 
-        FOR(i, j, k) OCTET(i, j, k) = hasher(i-1, j - 1, k-1);
+        FOR(i, j, k) octet(i, j, k) = hasher(i-1, j - 1, k-1);
         point_hash.reserve(node_num);
         edge_hash.reserve(edge_num); 
     }
@@ -39,6 +44,7 @@ public:
 
     static Key hasher(Point& P, int i, int j, int k ) { 
         constexpr int order = 1e3;
+
 
         int Px = floor(P.x * order) + i;
         int Py = floor(P.y * order) + j;
@@ -56,25 +62,21 @@ public:
         auto hash_P = hasher(P);
         FOR(i, j, k)
         {
-            auto hash_value = hash_P + OCTET(i, j, k);//Using memonization
+            auto hash_value = hash_P + octet(i, j, k);//Using memonization
             auto count = point_hash.count(hash_value);
 
-            if (count > 0 ) {
-
+            if (count > 0) {
                 auto range = point_hash.equal_range(hash_value);
-
-                FOR_RANGE(it,range) {
-
+                for_range(it, range) {
                     int node_index = it->second;
-
                     if (is_near_by(nodes[node_index], P))
-                        return node_index;
+                     return node_index;
                 }
             }
         }
 
         add_point(P, nodes.size());
-        return -1;
+        return NODE_NOT_FOUND;
     }
 
     static int lookup_edge(Edges& edges, int n1, int n2) { for (auto& edge : edges)if (is_edge_equal(edge, n1, n2))return edge.index; }
@@ -85,17 +87,15 @@ public:
 
         if (count > 0) {
             auto range = edge_hash.equal_range(hash_value);
-            FOR_RANGE(it,range) {
-
+            for_range(it, range) {
                 int edge_index = it->second;
-
-                if(is_edge_equal(edges[edge_index], n1, n2))
-                    return edge_index;
+                if (is_edge_equal(edges[edge_index], n1, n2))
+                        return edge_index;
             }
         }
 
         add_edge(n1, n2, edges.size());
-        return -1;
+        return EDGE_NOT_FOUND;
     }
 
     static bool is_edge_equal(Edge& E1, Edge& E2) { return is_edge_equal(E1.node[0], E1.node[1], E2.node[0], E2.node[1]); }

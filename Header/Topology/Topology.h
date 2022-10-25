@@ -34,10 +34,14 @@ public:
     void generate_topology();
     void create_nodal_topology();
     void create_edge_topology();
+    void add_new_edge(Face& face, int ii, Edges& edges, int& edge_index);
+    void add_new_node(Face& face, int ii, Nodes& nodes, int& node_index);
+    void set_edge(Face& face, int edge_index, Edges& edges);
 
     void extract_tessalation_boundary();
-    int get_first_boundary_edge();
     void extract_tessalation_boundary(int start_edge);
+
+    int get_first_boundary_edge();
 
 };
 

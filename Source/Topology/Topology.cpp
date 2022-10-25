@@ -6,7 +6,6 @@ int cycle(int i) { if (i + 1 > 2) return 0; return i + 1; }
 
 using namespace std;
 #define NOT_FOUND -1
-#define IS_NOT_FOUND(val) val == NOT_FOUND
 
 Topology::Topology(string file, string type = "STL") {
     cout << "\n--------------------------------------\n" << endl;
@@ -120,12 +119,9 @@ void Topology::create_nodal_topology() {
         for (int ii = 0; ii < 3; ii++){
             int node_index = Finder::lookup_point_fast(nodes, face->point[ii]);
 
-            if (IS_NOT_FOUND(node_index)) {
-                node_index = nodes.size();
-                auto node = Node();
-                node.set(node_index, face->point[ii]);
-                nodes.push_back(node);
-            }
+            if (node_index == NOT_FOUND) 
+                add_new_node(*face, ii, nodes, node_index);
+            
             face->node[ii] = node_index;
         }
     }
@@ -134,7 +130,29 @@ void Topology::create_nodal_topology() {
 #endif
 }
 
+void Topology::set_edge(Face& face, int edge_index, Edges& edges) {
+    edges[edge_index].traingle[1] = face.index;
+}
+void Topology::add_new_node(Face& face, int ii, Nodes& nodes, int& node_index) {
+    node_index = nodes.size();
+    auto node = Node();
+    node.set(node_index, face.point[ii]);
+    nodes.push_back(node);
+}
 
+void Topology::add_new_edge(Face& face,int ii, Edges& edges, int& edge_index) {
+    int jj = cycle(ii);
+    int tnode_i = face.node[ii];
+    int tnode_j = face.node[jj];
+
+    edge_index = edges.size();
+    auto N = face.N;
+    auto edge = Edge(tnode_i, tnode_j);
+    int tri_index = face.index;
+    edge.setEdge(edge_index, tri_index, -1, N);
+    edge.tangent(nodes[tnode_i].point(), nodes[tnode_j].point());
+    edges.emplace_back(edge);
+}
 void Topology::create_edge_topology() {
     for (auto face = mesh.begin(); face != mesh.end(); ++face) {
 
@@ -148,19 +166,10 @@ void Topology::create_edge_topology() {
 
             int edge_index = Finder::lookup_edge_fast(edges, tnode_i, tnode_j);
 
-            if (IS_NOT_FOUND(edge_index)) {
-                edge_index = edges.size();
-                auto N = face->N;
-                auto edge = Edge(tnode_i, tnode_j);
-                int tri_index = face->index;
-                edge.setEdge(edge_index, tri_index, -1, N);
-                edge.tangent(nodes[tnode_i].point(), nodes[tnode_j].point());
-                edges.emplace_back(edge);
-            }
-
-            else {
-                edges[edge_index].traingle[1] = face->index;
-            }
+            if (edge_index == NOT_FOUND) 
+                add_new_edge(*face, ii, edges, edge_index);
+            else 
+                set_edge(*face, edge_index, edges);
 
             face->edge[kk] = edge_index;
         }
