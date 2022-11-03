@@ -117,7 +117,7 @@ void Topology::create_nodal_topology() {
     Finder::initialize_hash(num_points, num_edges);
     for (auto face = mesh.begin(); face != mesh.end(); ++face) {
         for (int ii = 0; ii < 3; ii++){
-            int node_index = Finder::lookup_point_fast(nodes, face->point[ii]);
+            int node_index = Finder::lookup_point(nodes, face->point[ii]);
 
             if (node_index == NOT_FOUND) 
                 add_new_node(*face, ii, nodes, node_index);
@@ -164,7 +164,7 @@ void Topology::create_edge_topology() {
             int tnode_i = face->node[ii];
             int tnode_j = face->node[jj];
 
-            int edge_index = Finder::lookup_edge_fast(edges, tnode_i, tnode_j);
+            int edge_index = Finder::lookup_edge(edges, tnode_i, tnode_j);
 
             if (edge_index == NOT_FOUND) 
                 add_new_edge(*face, ii, edges, edge_index);
