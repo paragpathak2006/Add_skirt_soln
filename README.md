@@ -26,4 +26,6 @@ The space map implementation reduces the time complexity of the problem of the p
 
 See [Header/IO/Finder.h](https://github.com/paragpathak2006/Add_skirt_soln/blob/main/Header/IO/Finder.h)
 
+![space map](https://github.com/paragpathak2006/pmc/assets/31978917/9ec036a2-e23f-4409-a18d-8e86bcf129be)
+
  
