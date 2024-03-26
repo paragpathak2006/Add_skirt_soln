@@ -22,7 +22,7 @@ To edit parameters, go to parameters.h in IO/ and set the following values.
 ![1 -part-stl](https://user-images.githubusercontent.com/31978917/197202121-11ca0a4e-2b65-402b-9267-af730f192f7e.png)
 
 ## Space map implementation
-The space map implementation reduces the time complexity of the problem of the problem from O(n2) to O(n) enabling quick topology generation from point clouds.
+The space map implementation reduces the time complexity of the problem from O(n2) to O(n) enabling a fast topology generation from a point cloud into a fully connected watertight tessellation.
 
 See [Header/IO/Finder.h](https://github.com/paragpathak2006/Add_skirt_soln/blob/main/Header/IO/Finder.h)
 
