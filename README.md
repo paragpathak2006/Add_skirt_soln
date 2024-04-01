@@ -1,3 +1,7 @@
+## Visualization project 
+visit the following page for the visualization window project
+[https://github.com/paragpathak2006/Add_skirt_soln_gui](https://github.com/paragpathak2006/Add_skirt_soln_gui)
+
 # Add_skirt_soln
 
 - Two sample input parts (Parts.STL and Parts.txt) are in the Parts/ folder.
