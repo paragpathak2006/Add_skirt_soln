@@ -1,5 +1,6 @@
 # Problem statement
-Given a non-self intersercting projectable surface, create a skirt so that the part can be manufactured using bending process. 
+- Modify a shape, a 3D geometry, so that it can be "formed" using Dual Sided Incremental Forming (DSIF) process.
+- Given a non-self intersercting projectable surface, create a skirt so that the part can be manufactured using Dual Sided Incremental Forming (DSIF) process.. 
 
 # Test case 1
 - Input is a flat surface with two faces (shown in yellow). 
